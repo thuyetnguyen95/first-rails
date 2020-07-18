@@ -1,43 +1,44 @@
 <div class='container'>
-<h2>Detail article:</h2>
+<h2 class='mt-5'> <%= @article.title %> </h2>
+<br />
 <p>
-<strong>Title:</strong>
-<%= @article.title %>
+  <%= @article.text %>
 </p>
-
-<p>
-<strong>content:</strong>
-<%= @article.text %>
-</p>
-
-<h2>Comments</h2>
-<% @article.comments.each do |comment| %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.commenter %>
-  </p>
- 
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
-<% end %>
-
-<h2>Add a comment:</h2>
-<%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
-  <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
-  </p>
-  <p>
-    <%= form.label :body %><br>
-    <%= form.text_area :body %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
 
 <%= link_to 'Edit', edit_article_path(@article), :class=>'btn btn-warning btn-sm' %> |
 <%= link_to 'back', articles_path, :class=>'btn btn-secondary btn-sm' %>
+
+<div class='mt-5'>
+  <hr/>
+  <h4>Comments</h4>
+  <% @article.comments.each do |comment| %>
+    <p>
+      <strong>Name:</strong>
+      <%= comment.commenter %>
+    </p>
+  
+    <p>
+      <strong>Comment:</strong>
+      <%= comment.body %>
+    </p>
+  <% end %>
+</div>
+
+<div class='mt-5'>
+<hr/>
+  <h4>Add a comment:</h4>
+  <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+    <p>
+      <%= form.label :commenter, 'Your name' %><br>
+      <%= form.text_field :commenter, :class=>'form-control w-50' %>
+    </p>
+    <p>
+      <%= form.label :body, 'Content' %><br>
+      <%= form.text_area :body, :class=>'form-control w-50' %>
+    </p>
+    <p>
+      <%= form.submit 'Comment', :class=>'btn btn-success btn-sm' %>
+    </p>
+  <% end %>
+</div>
 </div>
